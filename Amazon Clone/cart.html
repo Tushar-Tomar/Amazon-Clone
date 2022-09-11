@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA_Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Amazon 2.0</title>
+    <link href="https://unpkg.com/tailwindcss@^2.0/dist/tailwind.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.3/css/all.css" integrity="sha384-SZXxX4whJ79/gErwcOYf+zWLeJdY/qpuqC4cAa9rOGUstPomtqpuNWT9wdPEn2fk" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/jdenticon@3.2.0/dist/jdenticon.min.js" async
+        integrity="sha384-yBhgDqxM50qJV5JPdayci8wCfooqvhFYbIKhv0hTtLvfeeyJMJCscRfFNKIxt43M"
+        crossorigin="anonymous">
+    </script>
+    <script src="https://www.gstatic.com/firebasejs/8.8.1/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.8.1/firebase-analytics.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.8.1/firebase-firestore.js"></script>
+    <script src="firebase.js"></script>
+    <script src="header.js"></script>
+    <script src="cart.js"></script>
+</head>
+<body>
+    <div class="bg-white w-full">
+        <div class="header h-16 bg-blue-900 flex items-center">
+            <div class="logo w-1/5 h-16 ml-10">
+                <a href="index.html"><img class="w-28 h-16 object-contain" src="https://upload.wikimedia.org/wikipedia/commons/thumb/a/a9/Amazon_logo.svg/603px-Amazon_logo.svg.png"></a>
+            </div>
+            <input class="h-9 w-30 bg-gray-800 border border-gray-500 border-opacity-75 rounded-l-xl px-3 text-white ml-6 focus:outline-none placeholder-white" id="search" type="text"
+            placeholder="Search...">
+
+            <div class=" categories h-9 w-30 bg-gray-800 border border-gray-500 border-opacity-75 px-3 text-white flex items-center">
+                categories
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-4 h-4 ml-2">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M19.5 8.25l-7.5 7.5-7.5-7.5" />
+                </svg>
+            </div>
+            <div class="search-icon h-9 w-10 bg-yellow-500 rounded-r-xl flex justify-center items-center text-white">
+              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 5.196a7.5 7.5 0 0010.607 10.607z" />
+              </svg>
+            </div>
+            <!--Right Icons -->
+            <div class="icons text-white flex items-center ml-auto mr-26 w-48 h-16 justify-around">
+                <svg class ="h-4 w-4 " xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M21 8.25c0-2.485-2.099-4.5-4.688-4.5-1.935 0-3.597 1.126-4.312 2.733-.715-1.607-2.377-2.733-4.313-2.733C5.1 3.75 3 5.765 3 8.25c0 7.22 9 12 9 12s9-4.78 9-12z" />
+                </svg>
+                <!--cart icon-->
+                  <div class=" relative cart-icon h-10 w-10 bg-yellow-500 flex items-center justify-center rounded-xl">
+                    <div class="cart-item-number text-gray-800 text-xs absolute -top-1 -right-1 h-4 w-4 bg-white rounded-full flex justify-center items-center"></div>
+                    <svg class="h-4 w-4 text-gray-600" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M2.25 3h1.386c.51 0 .955.343 1.087.835l.383 1.437M7.5 14.25a3 3 0 00-3 3h15.75m-12.75-3h11.218c1.121-2.3 2.1-4.684 2.924-7.138a60.114 60.114 0 00-16.536-1.84M7.5 14.25L5.106 5.272M6 20.25a.75.75 0 11-1.5 0 .75.75 0 011.5 0zm12.75 0a.75.75 0 11-1.5 0 .75.75 0 011.5 0z" />
+                      </svg>                      
+                  </div>
+                  <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4"fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M14.857 17.082a23.848 23.848 0 005.454-1.31A8.967 8.967 0 0118 9.75v-.7V9A6 6 0 006 9v.75a8.967 8.967 0 01-2.312 6.022c1.733.64 3.56 1.085 5.455 1.31m5.714 0a24.255 24.255 0 01-5.714 0m5.714 0a3 3 0 11-5.714 0" />
+                  </svg>
+                  <svg class="rounded h-12 w-12" 
+                  data-jdenticon-value="Tushar">
+                  </svg>
+                  
+            </div>
+        </div>
+        <div class="main h-screen flex">
+            <div class="hidden md:block border-t-2 border-gray-700 main-sidebar w-1/5 bg-gray-900 p-6">
+                <div class="sidebar-categories">
+                    <div class="sidebar-main-category text-yellow-500 cursor-pointer flex font-bold bg-gray-700 p-2 rounded-lg">
+                        <span class="w-8 "><svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2V6zM14 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2V6zM4 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2v-2zM14 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2v-2z"></path></svg></span>
+                    <span>categories</span>
+                    </div>
+                    <div class="sidebar-main-category text-white cursor-pointer flex font-bold p-2">
+                        <span class="w-8"></span>
+                        <span>Echo and Alexa</span>
+                    </div>
+                    <div class="sidebar-main-category text-white cursor-pointer flex font-bold p-2">
+                        <span class="w-8"></span>
+                        <span>Kindle</span>
+                    </div>
+                    <div class="sidebar-main-category text-white cursor-pointer flex font-bold p-2">
+                        <span class="w-8"></span>
+                        <span>Books</span>
+                    </div>
+                    <div class="sidebar-main-category text-white cursor-pointer flex font-bold p-2">
+                        <span class="w-8"></span>
+                        <span>Electronics</span>
+                    </div>
+                    <div class="sidebar-main-category text-white cursor-pointer flex font-bold p-2">
+                        <span class="w-8"></span>
+                        <span>Home and Garden</span>
+                    </div>
+                    <div class="sidebar-main-category text-white cursor-pointer flex font-bold p-2">
+                        <span class="w-8"></span>
+                        <span>Fashion</span>
+                    </div>
+                    <div class="sidebar-main-category text-white cursor-pointer flex font-bold p-2 hover:bg-gray-700 rounded-xl mb-4">
+                        <span class="w-8">
+                            <i class="fas fa-percent"></i>
+                        </span>
+                        <span>Sell on Amazon</span>
+                    </div>
+                    <div class="sidebar-main-category text-white cursor-pointer flex font-bold p-2 hover:bg-gray-700 rounded-xl">
+                        <span class="w-8">
+                            <i class="far fa-question-circle"></i>
+                        </span>
+                        <span>Help</span>
+                    </div>
+                </div>
+            </div>
+            <div class="main-section flex-1 p-6 bg-white-100">
+                 <h1 class="font bold text-gray-400 text-3xl mb-6">Shopping Cart</h1>
+                 <div class="font-bold text-gray-400 table-titles flex bg-white-500">
+                    <h2 class="flex-grow">Product</h2>
+                    <h2 class="w-48">Count</h2>
+                    <h2 class="w-48">Total Cost</h2>
+                    <span class="w-10"></span>
+                 </div>
+                 <div class="cart-items mt-2">
+                    <!--Cart Items From DB-->
+                 </div>
+                 <div class="complete-order flex justify-end mt-10">
+                     <div class="total-cost mr-7">
+                        <h2 class="text-gray-400">Total Cost</h2>
+                        <div class="total-cost-number text-gray -600 font-bold total-cost-number">
+                            $1,439.00
+                        </div>
+                     </div>
+                     <div class ="complete-order-button w-56 flex items-center justify-center rounded text-white bg-yellow-500 hover:bg-yellow-600">
+                          Complete Order
+                     </div>
+                 </div>
+            </div>
+        </div>
+    </div>
+
+</body>
+</html>
